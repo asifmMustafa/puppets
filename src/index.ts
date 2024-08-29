@@ -1,8 +1,9 @@
-import puppeteer, { Browser } from "puppeteer";
-import { createCursor, installMouseHelper } from "ghost-cursor";
-import { logMsg, logError, getRandomNumber } from "./utils";
+import puppeteer, { Browser, Page } from "puppeteer";
+import { createCursor, GhostCursor, installMouseHelper } from "ghost-cursor";
+import { logMsg, logError, getRandomNumber, delay } from "./utils";
 import accounts from "./data/accounts";
 import { Account, AccountState } from "./types";
+import { clickLink, scrollToBottom, type } from "./human";
 
 const CUSTOM_USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
@@ -132,12 +133,45 @@ class Scheduler {
   }
 }
 
+const login = async (page: Page, cursor: GhostCursor, account: Account) => {
+  await page.goto("https://mbasic.facebook.com", {
+    waitUntil: "networkidle0",
+  });
+
+  await delay(5000);
+
+  try {
+    await scrollToBottom(page);
+    await cursor.move('button[name="accept_only_essential"]');
+    await page.click('button[name="accept_only_essential"]');
+  } catch (err) {
+    logError("No cookies page!");
+  }
+
+  await type(page, "#m_login_email", account.email);
+  await type(page, '[name="pass"]', account.password);
+  await cursor.move('[name="login"]');
+  await page.click('[name="login"]');
+
+  await clickLink(page, cursor, "Not Now");
+
+  await delay(3000);
+};
+
 const startSession = async (
   browser: Browser,
   account: Account,
   activeDuration: number
 ): Promise<void> => {
-  // i will add logic here later
+  const startTime = Date.now();
+
+  const page = await browser.newPage();
+  await page.setUserAgent(CUSTOM_USER_AGENT);
+
+  const cursor = createCursor(page);
+  installMouseHelper(page);
+
+  await login(page, cursor, account);
 };
 
 const main = async () => {
