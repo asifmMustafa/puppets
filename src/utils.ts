@@ -22,6 +22,14 @@ export const logMsg = (
 export const logError = (message: string): void =>
   console.log(`${TEXT_COLORS.red}[ ERROR ]${TEXT_COLORS.reset} ${message}`);
 
+export const catchError = (error: any): void => {
+  if (error instanceof Error) {
+    logError(error.message);
+  } else {
+    logError("An unknown error occurred.");
+  }
+};
+
 export const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 

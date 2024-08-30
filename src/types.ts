@@ -10,4 +10,10 @@ type Account = {
   proxy: string;
 };
 
-export { Account };
+type Source = {
+  url: string;
+  name: string;
+  being_scraped: boolean;
+};
+
+export { Account, Source };

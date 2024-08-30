@@ -15,12 +15,6 @@ const accounts = [
     password: process.env.ACCOUNT_TWO_PASSWORD as string,
     proxy: process.env.PROXY_TWO as string,
   },
-  {
-    name: process.env.ACCOUNT_THREE_NAME as string,
-    email: process.env.ACCOUNT_THREE_EMAIL as string,
-    password: process.env.ACCOUNT_THREE_PASSWORD as string,
-    proxy: process.env.PROXY_THREE as string,
-  },
 ];
 
 export default accounts;
