@@ -9,7 +9,7 @@ You should put your custom scraping logic in src/scrape.ts
 
 Made using puppeteer which clearly inspired the name :)
 
-[![SoOzn.gif](https://s11.gifyu.com/images/SoOzn.gif)](https://gifyu.com/image/SoOzn)
+[Demo video](https://streamable.com/zj2ouh)
 
 ## Installation
 
