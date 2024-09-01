@@ -40,7 +40,7 @@ ACCOUNT_TWO_NAME=
 ACCOUNT_TWO_EMAIL=
 ACCOUNT_TWO_PASSWORD=
 
-# add more accounts and proxies as needed
+# add more accounts and proxies as needed, you'd need to update src/data/accounts.ts if you add more accounts or remove any
 ```
 
 Start the script
